@@ -23,6 +23,7 @@ if [ -e $DFILE ]; then
         echo `date` 'certificate expiry day is less than 5 days!'  >> $LOGFILE 2>&1
         # renew certificate
         # restart nginx
+        
     else
         echo `date` 'certificate expiry day is far enough!' >> $LOGFILE 2>&1
         # do nothing

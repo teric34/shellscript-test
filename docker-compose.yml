@@ -12,4 +12,15 @@ services:
     volumes:
     #  - ./cron.log:/var/log/cron.log
       - ./shellscript.sh:/shellscript.sh
-      - ./_.masa-nakajima.com.crt:/tmp/_.masa-nakajima.com.crt
+      - ./_.sample.crt:/tmp/_.sample.com.crt
+  web:
+    image: nginx:1.18.0-alpine
+    container_name: websrv2
+    restart: always
+    ports:
+      - 80:80
+    environment:
+      TZ: "Asia/Tokyo"
+    depends_on:
+      - cert
+
