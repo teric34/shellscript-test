@@ -1,6 +1,6 @@
 #!/bin/sh
 DIR="/tmp/"
-FILE="_.$DOMAINS2.crt"
+FILE="_.$DOMAINS.crt"
 DFILE=$DIR$FILE
 EXP=$EXPIRE
 BFD=$BFDAY

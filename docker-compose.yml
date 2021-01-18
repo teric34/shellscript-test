@@ -5,8 +5,7 @@ services:
     build: .
     container_name: shell
     environment:
-      DOMAINS1: ${DOMAINS1}
-      DOMAINS2: ${DOMAINS2}
+      DOMAINS: ${DOMAINS}
       EXPIRE: ${EXPIRE}
       BFDAY: ${BFDAY}
       TZ: Asia/Tokyo
