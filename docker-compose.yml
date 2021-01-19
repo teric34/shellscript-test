@@ -2,7 +2,7 @@ version: '3.1'
 
 services:
   cert:
-    build: .
+    build: ./cert
     container_name: shell
     environment:
       DOMAINS: ${DOMAINS}
@@ -10,17 +10,26 @@ services:
       BFDAY: ${BFDAY}
       TZ: Asia/Tokyo
     volumes:
-    #  - ./cron.log:/var/log/cron.log
-      - ./shellscript.sh:/shellscript.sh
-      - ./_.sample.crt:/tmp/_.sample.com.crt
+    #  - ./cert/cron.log:/var/log/cron.log
+      - ./cert/shellscript.sh:/shellscript.sh
+      - ./cert/_.sample.crt:/tmp/_.sample.com.crt
   web:
-    image: nginx:1.18.0-alpine
+    build: ./web
     container_name: websrv2
     restart: always
+    environment:
+      TZ: Asia/Tokyo
+      # PUBLIC_KEY_FILE: /path/to/file
+#     SUDO_ACCESS: 'false'
+#      PASSWORD_ACCESS: 'false'
+      USER_PASSWORD: password
+      USER_NAME: sshuser
+    volumes:
+      - /web/config:/config
     ports:
       - 80:80
-    environment:
-      TZ: "Asia/Tokyo"
+      - 2222:2222
+#      - 22:22
     depends_on:
       - cert
 
