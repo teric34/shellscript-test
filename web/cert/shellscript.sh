@@ -18,12 +18,15 @@ if [ -e $DFILE ]; then
 
     if [ ${DDATE} -le 0 ]; then
         echo `date` 'certificate is expired!' >> $LOGFILE 2>&1
-        # take certificate
+        echo $DOMAINS
+        nginx -s reload
+        echo `date` 'nginx was reloaded'  >> $LOGFILE 2>&1
     elif [ ${DDATE} -lt ${BFD} ]; then
         echo `date` 'certificate expiry day is less than 5 days!'  >> $LOGFILE 2>&1
         # renew certificate
-        # restart nginx
-        
+        echo $DOMAINS
+        nginx -s reload
+        echo `date` 'nginx was reloaded'  >> $LOGFILE 2>&1
     else
         echo `date` 'certificate expiry day is far enough!' >> $LOGFILE 2>&1
         # do nothing

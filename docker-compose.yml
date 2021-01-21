@@ -1,35 +1,19 @@
 version: '3.1'
 
 services:
-  cert:
-    build: ./cert
-    container_name: shell
+  web:
+    build: ./web
+    container_name: websrv2
+    restart: always
     environment:
       DOMAINS: ${DOMAINS}
       EXPIRE: ${EXPIRE}
       BFDAY: ${BFDAY}
       TZ: Asia/Tokyo
     volumes:
-    #  - ./cert/cron.log:/var/log/cron.log
-      - ./cert/shellscript.sh:/shellscript.sh
-      - ./cert/_.sample.crt:/tmp/_.sample.com.crt
-  web:
-    build: ./web
-    container_name: websrv2
-    restart: always
-    environment:
-      TZ: Asia/Tokyo
-      # PUBLIC_KEY_FILE: /path/to/file
-#     SUDO_ACCESS: 'false'
-#      PASSWORD_ACCESS: 'false'
-      USER_PASSWORD: password
-      USER_NAME: sshuser
-    volumes:
-      - /web/config:/config
+      - ./web/cert/_.sample.crt:/tmp/_.sample.com.crt
+      - ./web/cert/shellscript.sh:/tmp/shellscript.sh
+      - ./web/cert/shellscript.log:/tmp/shellscript.log
     ports:
       - 80:80
-      - 2222:2222
-#      - 22:22
-    depends_on:
-      - cert
 
